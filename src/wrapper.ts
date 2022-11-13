@@ -9,11 +9,13 @@ export class Api {
   }
 
   async get<T>(path: string): Promise<T> {
+    if (!Api._instance) throw new Error('Api not initialized');
     const response = await fetch(`${this.api}${path}`, { headers: this.headers });
     return await response.json();
   }
 
   async post<T, U>(path: string, body: T): Promise<U> {
+    if (!Api._instance) throw new Error('Api not initialized');
     const response = await fetch(`${this.api}${path}`, {
       method: 'POST',
       headers: this.headers,
@@ -23,11 +25,10 @@ export class Api {
   }
 
   public static getInstance() {
-    if (!this._instance) throw new Error('Api not initialized');
     return this._instance;
   }
 
-  public static initialize(api: string, token: string) {
+  public static async initialize(api: string, token: string) {
     this._instance = new Api(api, token);
   }
 }
