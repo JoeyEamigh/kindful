@@ -29,10 +29,13 @@ const token = 'your token here';
 
 const kindful = new Kindful(url, token);
 
-// query calls
-const exists = kindful.query.emailExists('email address');
-
 // contact calls
+const exists = kindful.contact.emailExists('email address');
+const contacts = kindful.contact.query(['changed'], { contact: ['all'] });
+const _ = kindful.contact.create({ first_name: 'New', last_name: 'Person', email: 'new@person.com' });
+const _ = kindful.contact.update({ id: 'id_1234567', email: 'different@person.com' });
+
+// transaction calls
 
 // escape to the API wrapper
 const get = kindful.api.get<ResponseType>('/get-endpoint');

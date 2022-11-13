@@ -19,5 +19,4 @@ module.exports = {
       },
     },
   ],
-  tailwindConfig: './apps/web/tailwind.config.js',
 };

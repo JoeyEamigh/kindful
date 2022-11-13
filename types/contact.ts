@@ -1,3 +1,5 @@
+import { CustomFieldGroup } from './meta';
+
 export interface Contact {
   id: string;
   title?: string;
@@ -27,7 +29,7 @@ export interface Contact {
   spouse_last?: string;
   created_at?: string;
   updated_at?: string;
-  custom_fields?: CustomField[];
+  custom_fields?: { [name: string]: ContactCustomField };
 }
 
 export interface DonorContact extends Contact {
@@ -36,17 +38,20 @@ export interface DonorContact extends Contact {
   donor_type?: string;
 }
 
-export interface CustomField {
-  id: string;
-  name: string;
-  custom_field_group: CustomFieldGroup;
-  field_type: string;
-  field_values?: string[];
+export interface QueriedContact extends Contact {
+  record_type: 'contact';
+  _links: {
+    self: string;
+  };
 }
 
-export interface CustomFieldGroup {
-  id: string;
-  name: string;
+export interface ContactCustomField {
+  custom_field_id: string;
+  name?: string;
+  custom_field_group?: CustomFieldGroup;
+  field_type?: string;
+  field_values?: string[];
+  value?: string;
 }
 
 export interface ContactWithTransaction extends Contact {
@@ -62,9 +67,9 @@ export interface ContactWithTransaction extends Contact {
   transaction_updated_at?: string;
   campaign?: string;
   campaign_id?: string;
-  /// if unknown, pass 'General'
+  /** if unknown, pass 'General' */
   fund: string | 'General';
-  /// if unknown, pass '1'
+  /** if unknown, pass '1' */
   fund_id: string | '1';
   acknowledged?: string;
   transaction_note?: string;
