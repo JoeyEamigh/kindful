@@ -25,7 +25,7 @@ export interface ContactImportRequest {
   match_by?: ContactMatchBy;
 }
 
-export interface ContactImportResponse {
+export interface ImportResponse {
   id: string;
   status: 'pending';
 }

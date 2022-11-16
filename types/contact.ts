@@ -54,43 +54,6 @@ export interface ContactCustomField {
   value?: string;
 }
 
-export interface ContactWithTransaction extends Contact {
-  stripe_customer_id?: string;
-  authorize_customer_id?: string;
-  paypal_payer_id?: string;
-  created_at?: string;
-  updated_at?: string;
-  transaction_id?: string;
-  amount_in_cents: string;
-  currency?: string;
-  transaction_time: string;
-  transaction_updated_at?: string;
-  campaign?: string;
-  campaign_id?: string;
-  /** if unknown, pass 'General' */
-  fund: string | 'General';
-  /** if unknown, pass '1' */
-  fund_id: string | '1';
-  acknowledged?: string;
-  transaction_note?: string;
-  stripe_charge_id?: string;
-  authorize_transaction_id?: string;
-  paypal_transaction_id?: string;
-  transaction_type?: string;
-  was_refunded?: string;
-  check_num?: string;
-  card_type?: string;
-  non_tax_deductible_amount_in_cents?: string;
-  is_donation?: string;
-  cause?: string;
-  cause_id?: string;
-  team?: string;
-  team_id?: string;
-  team_member_first_name?: string;
-  team_member_last_name?: string;
-  team_member_id?: string;
-}
-
 export interface ContactWithCauseTeam extends Contact {
   campaign?: string;
   campaign_id?: string;
@@ -160,4 +123,17 @@ export interface ContactWithSoftCredit extends Contact {
   soft_credit_time: string;
   soft_credit_updated_at?: string;
   soft_credit_note?: string;
+}
+
+export interface ContactLink {
+  id: string;
+  external_id: string;
+  sync_version: string;
+  updated_at: string;
+}
+
+export interface ContactLinkRequest {
+  action_type: 'update';
+  data_type: 'json';
+  data: ContactLink[];
 }
