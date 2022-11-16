@@ -1,5 +1,5 @@
 import { Contact, QueriedContact } from '../types/contact';
-import { ContactImportRequest, ContactImportResponse } from '../types/imports';
+import { ContactImportRequest, ContactImportResponse, ContactMatchBy } from '../types/imports';
 import {
   ContactsRequestQuery as QueryContactsRequestQuery,
   EmailExistResponse,
@@ -22,8 +22,12 @@ export async function query(body: QueryContactsRequest) {
 }
 
 /** Kindful will ignore any contacts that match either the match_by parameter or the external_id. */
-export async function create(data: Contact[]) {
-  return await api.post<ContactImportRequest, ContactImportResponse>('/api/v1/contacts', { ...createBody, data });
+export async function create(data: Contact[], match_by?: ContactMatchBy) {
+  return await api.post<ContactImportRequest, ContactImportResponse>('/api/v1/contacts', {
+    ...createBody,
+    match_by,
+    data,
+  });
 }
 
 /**
@@ -31,6 +35,10 @@ export async function create(data: Contact[]) {
  *
  * Kindful will create a new record if match_by is not provided and the external_id does not match an existing contact.
  */
-export async function upsert(data: Contact[]) {
-  return await api.post<ContactImportRequest, ContactImportResponse>('/api/v1/contacts', { ...updateBody, data });
+export async function upsert(data: Contact[], match_by?: ContactMatchBy) {
+  return await api.post<ContactImportRequest, ContactImportResponse>('/api/v1/contacts', {
+    ...updateBody,
+    match_by,
+    data,
+  });
 }
