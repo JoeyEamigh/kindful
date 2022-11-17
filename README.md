@@ -2,6 +2,10 @@
 
 TypeScript wrapper for Kindful Client API. More info on the Kindful APIs here: <https://developer.kindful.com/>
 
+## Notes
+
+aAaAaAaAaAaAaAaAaAhHhHhHhHhHhHgGgGgG
+
 ## Disclaimer
 
 I have no affiliation with Kindful, I just needed an API wrapper so I decided to publish it.
@@ -56,9 +60,9 @@ const _ = kindful.transaction.withContact([{ id: 'contact id', amount_in_cents: 
 
 // group calls (very cursed)
 const groups = ['group 1', 'group 2'];
-const _ = kindful.group.createWithContact<typeof groups>({ first_name: 'New', last_name: 'Person', email: 'new@person.com' }, groups);
-const _ = kindful.group.addContacts<typeof groups>(['contact id 1', 'contact id 2'], groups); // might also create a group if it doesn't exist? not sure
-const _ = kindful.group.removeContacts<typeof groups>(['contact id 1', 'contact id 2'], groups);
+const _ = kindful.group.createWithContact({ first_name: 'New', last_name: 'Person', email: 'new@person.com' }, groups);
+const _ = kindful.group.addContacts(['contact id 1', 'contact id 2'], groups); // might also create a group if it doesn't exist? not sure
+const _ = kindful.group.removeContacts(['contact id 1', 'contact id 2'], groups);
 
 // meta calls
 const campaigns = kindful.meta.campaigns();
@@ -69,6 +73,7 @@ const customFieldGroups = kindful.meta.customFieldGroups();
 const details = kindful.meta.details();
 const funds = kindful.meta.funds();
 const importStats = kindful.meta.importStats();
+const importStatus = kindful.meta.importStatus(importId);
 
 // escape to the API wrapper
 const get = kindful.api.get<ResponseType>('/get-endpoint');

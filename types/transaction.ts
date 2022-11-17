@@ -3,6 +3,8 @@ import { TransactionRequestQuery } from './querying';
 import { Campaign } from './campaign';
 import { Fund } from './fund';
 
+type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
+
 export interface TransactionRequestColumns {
   transaction?: string[];
   contact?: string[];
@@ -10,12 +12,16 @@ export interface TransactionRequestColumns {
   fund?: string[];
 }
 
-export interface TransactionQueryRequest {
-  query: TransactionRequestQuery[];
+interface ITransactionQueryRequest {
+  query?: TransactionRequestQuery[];
   per_page?: number;
   columns?: TransactionRequestColumns;
   contact_custom_fields?: number[];
+  query_token?: string;
 }
+export type TransactionQueryRequest =
+  | WithRequired<ITransactionQueryRequest, 'query'>
+  | WithRequired<ITransactionQueryRequest, 'query_token'>;
 
 export interface Transaction {
   id: string;

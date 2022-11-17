@@ -21,7 +21,10 @@ export async function link(data: TransactionLink[]) {
 }
 
 export async function query(body: TransactionQueryRequest) {
-  return await Kindful.api.post<TransactionQueryRequest, QueryResponse<Transaction>>('/api/v1/contacts/query', body);
+  return await Kindful.api.post<TransactionQueryRequest, QueryResponse<Transaction>>(
+    '/api/v1/transactions/query',
+    body,
+  );
 }
 
 export async function withNewContact(data: ContactWithTransaction[]) {

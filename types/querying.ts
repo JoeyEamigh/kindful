@@ -23,7 +23,7 @@ export type ContactsRequestQuery =
   | { not: ContactsRequestQuery[] }
   | { by_group_id: string[] }
   | { near_postal: [string, number] }
-  | { has_email: string };
+  | { has_email: 'Yes' | 'No' };
 
 /**
  * before and after format: yyyy/mm/dd or yyyy-mm-dd
@@ -41,7 +41,7 @@ export type TransactionRequestQuery =
   | { not: TransactionRequestQuery[] }
   | { campaign_id: string }
   | { near_postal: [string, number] }
-  | { has_email: string };
+  | { has_email: 'Yes' | 'No' };
 
 export interface QueryResponse<T> {
   page: number;
