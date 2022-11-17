@@ -28,9 +28,7 @@ export class Api {
     return this._instance;
   }
 
-  public static async initialize(api: string, token: string) {
+  public static initialize(api: string, token: string) {
     this._instance = new Api(api, token);
   }
 }
-
-export const api = Api.getInstance();

@@ -58,6 +58,7 @@ const _ = kindful.transaction.withContact([{ id: 'contact id', amount_in_cents: 
 const groups = ['group 1', 'group 2'];
 const _ = kindful.group.createWithContact<typeof groups>({ first_name: 'New', last_name: 'Person', email: 'new@person.com' }, groups);
 const _ = kindful.group.addContacts<typeof groups>(['contact id 1', 'contact id 2'], groups); // might also create a group if it doesn't exist? not sure
+const _ = kindful.group.removeContacts<typeof groups>(['contact id 1', 'contact id 2'], groups);
 
 // meta calls
 const campaigns = kindful.meta.campaigns();

@@ -30,4 +30,8 @@ export default class Kindful {
     Api.initialize(apiUrl, token);
     this.api = Api.getInstance();
   }
+
+  public static get api() {
+    return Api.getInstance();
+  }
 }

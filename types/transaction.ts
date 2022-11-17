@@ -18,7 +18,7 @@ export interface TransactionQueryRequest {
 }
 
 export interface Transaction {
-  id: number;
+  id: string;
   external_id?: string | null;
   sync_version?: number;
   transaction_time: string;
