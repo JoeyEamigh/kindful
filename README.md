@@ -37,6 +37,13 @@ Playing with the Postman collection is also a good way to get a feel for how the
 
 Have fun trying to figure this one out (it won't be)!
 
+## Features
+
+- [x] Modern TypeScript
+- [x] Authentication
+- [x] Sandbox Support
+- [x] Automatic Request Batching
+
 ## Usage
 
 ```ts

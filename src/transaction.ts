@@ -9,6 +9,7 @@ import {
   TransactionLinkRequest,
   Transaction,
 } from '../types/transaction';
+import { createQueue } from './shared';
 
 const defaults = { data_format: 'contact_with_transaction' as 'contact_with_transaction', data_type: 'json' as 'json' };
 
@@ -27,18 +28,26 @@ export async function query(body: TransactionQueryRequest) {
   );
 }
 
-export async function withNewContact(data: ContactWithTransaction[]) {
-  return await Kindful.api.post<TransactionWithContactRequest, ImportResponse>('/api/v1/imports', {
-    ...defaults,
-    data,
-    action_type: 'create',
-  });
+export async function withNewContact(raw: ContactWithTransaction[]) {
+  return await Promise.all(
+    createQueue(raw).map(data =>
+      Kindful.api.post<TransactionWithContactRequest, ImportResponse>('/api/v1/imports', {
+        ...defaults,
+        data,
+        action_type: 'create',
+      }),
+    ),
+  );
 }
 
-export async function withContact(data: ContactWithTransaction[]) {
-  return await Kindful.api.post<TransactionWithContactRequest, ImportResponse>('/api/v1/imports', {
-    ...defaults,
-    data,
-    action_type: 'update',
-  });
+export async function withContact(raw: ContactWithTransaction[]) {
+  return await Promise.all(
+    createQueue(raw).map(data =>
+      Kindful.api.post<TransactionWithContactRequest, ImportResponse>('/api/v1/imports', {
+        ...defaults,
+        data,
+        action_type: 'update',
+      }),
+    ),
+  );
 }

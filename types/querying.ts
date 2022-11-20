@@ -1,13 +1,24 @@
+import { WithRequired } from './utils';
+
 export interface EmailExistResponse {
   exists: boolean;
 }
 
-export interface QueryContactsRequest {
-  query: ContactsRequestQuery[];
+// export type TransactionQueryRequest =
+//   | WithRequired<ITransactionQueryRequest, 'query'>
+//   | WithRequired<ITransactionQueryRequest, 'query_token'>;
+
+export interface IContactQueryRequest {
+  query?: ContactsRequestQuery[];
   per_page?: number;
   custom_fields?: string[];
   columns?: QueryContactsRequestColumns;
+  query_token?: string;
 }
+
+export type ContactQueryRequest =
+  | WithRequired<IContactQueryRequest, 'query'>
+  | WithRequired<IContactQueryRequest, 'query_token'>;
 
 export interface QueryContactsRequestColumns {
   contact?: string[];

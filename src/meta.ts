@@ -38,7 +38,7 @@ export async function funds() {
 }
 
 export async function importStats() {
-  return await Kindful.api.get<ImportStatsResponse>('/api/v1/import_stats');
+  return await Kindful.api.get<ImportStatsResponse>('/api/v1/imports/stats');
 }
 
 export async function importStatus(id: string) {

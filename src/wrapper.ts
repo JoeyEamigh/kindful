@@ -13,7 +13,8 @@ export class Api {
   async get<T>(path: string): Promise<T> {
     if (!Api._instance) throw new Error('Api not initialized');
     const response = await fetch(`${this.api}${path}`, { headers: this.headers });
-    logger('GET', `${this.api}${path}`, response);
+    logger('GET', `${this.api}${path}`, response.statusText);
+    if (response.status >= 400) throw new Error(response.statusText);
     return await response.json();
   }
 
@@ -24,7 +25,8 @@ export class Api {
       headers: this.headers,
       body: JSON.stringify(body),
     });
-    logger('POST', `${this.api}${path}`, JSON.stringify(body, null, 2), response);
+    logger('POST', `${this.api}${path}`, JSON.stringify(body, null, 2), response.statusText);
+    if (response.status >= 400) throw new Error(response.statusText);
     return await response.json();
   }
 

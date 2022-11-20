@@ -2,6 +2,8 @@ import { CustomFieldGroup } from './meta';
 
 export interface Contact {
   id: string;
+  external_id?: string;
+  sync_version?: number;
   title?: string;
   first_name?: string;
   last_name?: string;
@@ -33,8 +35,6 @@ export interface Contact {
 }
 
 export interface DonorContact extends Contact {
-  external_id: string;
-  sync_version?: number;
   donor_type?: string;
 }
 
