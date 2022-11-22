@@ -1,10 +1,10 @@
-# kindful-js (work in progress - not published)
+# kindful-js
 
-TypeScript wrapper for Kindful Client API. More info on the Kindful APIs here: <https://developer.kindful.com/>
+TypeScript wrapper for (parts of) the Kindful Client API. More info on the Kindful APIs here: <https://developer.kindful.com/>
 
 ## Notes
 
-aAaAaAaAaAaAaAaAaAhHhHhHhHhHhHgGgGgG
+The Kindful API is designed to be used in a two-way sync system, wherein you import all of their records, attempt to match them, then export your records. This can also be done the other way around, where you export your records and Kindful attempts to match them, if your data is very good.
 
 ## Disclaimer
 
@@ -12,7 +12,7 @@ I have no affiliation with Kindful, I just needed an API wrapper so I decided to
 
 ## Requirements
 
-A fetch polyfill is required to use this library if your nodejs version is < 18.x.x.
+A fetch polyfill is required to use this library if your nodejs major version is less than 18. I would recommend <https://www.npmjs.com/package/isomorphic-fetch>.
 
 ## Installation
 
@@ -49,7 +49,7 @@ Have fun trying to figure this one out (it won't be)!
 ```ts
 import Kindful from 'kindful-js';
 
-const url = 'https://app-sandbox.kindful.com/api/v1' || 'https://app.kindful.com/api/v1';
+const url = 'https://app-sandbox.kindful.com' || 'https://app.kindful.com';
 const token = 'your token here';
 
 const kindful = new Kindful(url, token);
@@ -59,16 +59,18 @@ const exists = kindful.contact.emailExists('email address');
 const contacts = kindful.contact.query(['changed'], { contact: ['all'] });
 const _ = kindful.contact.create([{ first_name: 'New', last_name: 'Person', email: 'new@person.com' }]);
 const _ = kindful.contact.update([{ id: 'id_1234567', email: 'different@person.com' }]);
+const _ = kindful.contact.link([ id: 'kindful_id', external_id: 'your_id', sync_version: '1', updated_at: new Date().toISOString() ]);
 
 // transaction calls
 const transactions = kindful.transaction.query(['changed'], { transaction: ['all'], contact: ['all'] });
 const _ = kindful.transaction.withNewContact([{ first_name: 'New', last_name: 'Person', email: 'new@person.com', amount_in_cents: 500, transaction_time: new Date().toISOString(), fund: 'General', fund_id: '1' }]);
 const _ = kindful.transaction.withContact([{ id: 'contact id', amount_in_cents: 500, transaction_time: new Date().toISOString(), fund: 'General', fund_id: '1' }]);
+const _ = kindful.transaction.link([ id: 'kindful_id', external_id: 'your_id', sync_version: '1', updated_at: new Date().toISOString() ])
 
 // group calls (very cursed)
 const groups = ['group 1', 'group 2'];
 const _ = kindful.group.createWithContact({ first_name: 'New', last_name: 'Person', email: 'new@person.com' }, groups);
-const _ = kindful.group.addContacts(['contact id 1', 'contact id 2'], groups); // might also create a group if it doesn't exist? not sure
+const _ = kindful.group.addContacts(['contact id 1', 'contact id 2'], groups); // might also create a group if it doesn't exist?
 const _ = kindful.group.removeContacts(['contact id 1', 'contact id 2'], groups);
 
 // meta calls
@@ -81,6 +83,9 @@ const details = kindful.meta.details();
 const funds = kindful.meta.funds();
 const importStats = kindful.meta.importStats();
 const importStatus = kindful.meta.importStatus(importId);
+
+// if you want to wait for the import to finish (wait for Kindful's batching)
+const finished = await this.kindful.helpers.pollForCompletion(importResponseArray);
 
 // escape to the API wrapper
 const get = kindful.api.get<ResponseType>('/get-endpoint');
