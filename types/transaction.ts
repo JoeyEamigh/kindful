@@ -12,7 +12,7 @@ export interface TransactionRequestColumns {
   fund?: string[];
 }
 
-interface ITransactionQueryRequest {
+export interface ITransactionQueryRequest {
   query?: TransactionRequestQuery[];
   per_page?: number;
   columns?: TransactionRequestColumns;

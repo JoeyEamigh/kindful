@@ -86,6 +86,9 @@ const importStatus = kindful.meta.importStatus(importId);
 
 // if you want to wait for the import to finish (wait for Kindful's batching)
 const finished = await this.kindful.helpers.pollForCompletion(importResponseArray);
+// if you want to get all of the query's results (abuse batching & query limits)
+const notLinked = await this.kindful.helpers.getAllFromQuery(this.kindful.contact, { query: ['not_linked'] });
+const notLinkedT = await this.kindful.helpers.getAllFromQuery(this.kindful.transaction, { query: ['not_linked'] });
 
 // escape to the API wrapper
 const get = kindful.api.get<ResponseType>('/get-endpoint');

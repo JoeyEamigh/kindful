@@ -16,7 +16,7 @@ import * as contact from './src/contact';
 import * as transaction from './src/transaction';
 import * as meta from './src/meta';
 import * as group from './src/group';
-import { pollForCompletion } from './src/shared';
+import { pollForCompletion, getAllFromQuery } from './src/shared';
 
 type KindfulApiUrl = 'https://app-sandbox.kindful.com' | 'https://app.kindful.com';
 
@@ -26,7 +26,7 @@ export default class Kindful {
   public readonly transaction = transaction;
   public readonly meta = meta;
   public readonly group = group;
-  public readonly helpers = { pollForCompletion };
+  public readonly helpers = { pollForCompletion, getAllFromQuery };
 
   constructor(apiUrl: KindfulApiUrl, token: string) {
     Api.initialize(apiUrl, token);
