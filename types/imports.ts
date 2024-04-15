@@ -62,6 +62,6 @@ export interface ImportStatusResponse {
   notifications: {
     page: number;
     count: number;
-    results: any[];
+    results: unknown[];
   };
 }

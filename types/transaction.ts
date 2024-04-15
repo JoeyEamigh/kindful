@@ -93,8 +93,10 @@ export interface ContactWithTransaction extends Contact {
   campaign?: string;
   campaign_id?: string;
   /** if unknown, pass 'General' */
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   fund: string | 'General';
   /** if unknown, pass '1' */
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   fund_id: string | '1';
   acknowledged?: string;
   transaction_note?: string;

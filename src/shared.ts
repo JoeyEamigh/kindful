@@ -1,6 +1,6 @@
 import { QueriedContact } from '../types/contact';
 import { ImportResponse } from '../types/imports';
-import { ContactQueryRequest, ContactsRequestQuery, IContactQueryRequest } from '../types/querying';
+import { ContactQueryRequest, IContactQueryRequest } from '../types/querying';
 import { ITransactionQueryRequest, Transaction, TransactionQueryRequest } from '../types/transaction';
 import { WithRequired } from '../types/utils';
 import { importStatus } from './meta';
@@ -26,8 +26,9 @@ export async function getAllFromQuery<T extends typeof contact | typeof transact
   type: T,
   query: WithRequired<T extends typeof contact ? IContactQueryRequest : ITransactionQueryRequest, 'query'>,
 ): Promise<T extends typeof contact ? QueriedContact[] : Transaction[]> {
-  let query_token: string;
-  const result = [] as T extends typeof contact ? QueriedContact[] : Transaction[];
+  let query_token: string = '';
+  const result = [] as unknown as T extends typeof contact ? QueriedContact[] : Transaction[];
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     const {
       query_token: token,
@@ -35,7 +36,8 @@ export async function getAllFromQuery<T extends typeof contact | typeof transact
       results,
     } = await type.query(query_token ? { query_token } : (query as ContactQueryRequest & TransactionQueryRequest));
 
-    result.push(...(results as any));
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any
+    result.push(...(results as any[]));
     if (!has_more) break;
     query_token = token;
   }

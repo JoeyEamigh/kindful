@@ -22,7 +22,7 @@ export async function createWithContact<T extends string[]>(raw: ContactWithGrou
 /** must include array of group names as TS parameter for type checks :) */
 export async function addContacts<T extends string[]>(id: string[], groups: T) {
   return await Promise.all(
-    createQueue(id).map(data =>
+    createQueue(id).map(() =>
       Kindful.api.post<CreateGroupRequest<T>, ImportResponse>('/api/v1/imports', {
         data_format: 'contact',
         data_type: 'json',
@@ -43,7 +43,7 @@ export async function addContacts<T extends string[]>(id: string[], groups: T) {
 /** must include array of group names as TS parameter for type checks :) */
 export async function removeContacts<T extends string[]>(id: string[], groups: T) {
   return await Promise.all(
-    createQueue(id).map(data =>
+    createQueue(id).map(() =>
       Kindful.api.post<CreateGroupRequest<T>, ImportResponse>('/api/v1/imports', {
         data_format: 'contact',
         data_type: 'json',

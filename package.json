@@ -8,12 +8,17 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "yarn tsc --build",
+    "lint": "eslint",
     "dev": "yarn tsc --watch",
     "dev:local": "yarn tsc --watch"
   },
   "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.6.0",
     "prettier": "^3.2.5",
-    "rimraf": "^5.0.5",
-    "typescript": "5.4.2"
+    "rimraf": "^5.0.5"
   }
 }

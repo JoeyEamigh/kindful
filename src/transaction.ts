@@ -11,7 +11,7 @@ import {
 } from '../types/transaction';
 import { createQueue } from './shared';
 
-const defaults = { data_format: 'contact_with_transaction' as 'contact_with_transaction', data_type: 'json' as 'json' };
+const defaults = { data_format: 'contact_with_transaction', data_type: 'json' } as const;
 
 export async function link(data: TransactionLink[]) {
   return await Kindful.api.post<TransactionLinkRequest, ImportResponse>('/api/v1/transactions/link', {
