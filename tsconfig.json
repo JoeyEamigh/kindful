@@ -12,7 +12,8 @@
     "noImplicitAny": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "preserveWatchOutput": true
   },
   "include": ["index.ts", "src"],
   "exclude": ["node_modules"]
