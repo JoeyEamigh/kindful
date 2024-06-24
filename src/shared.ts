@@ -28,7 +28,6 @@ export async function getAllFromQuery<T extends typeof contact | typeof transact
 ): Promise<T extends typeof contact ? QueriedContact[] : Transaction[]> {
   let query_token: string = '';
   const result = [] as unknown as T extends typeof contact ? QueriedContact[] : Transaction[];
-  // eslint-disable-next-line no-constant-condition
   while (true) {
     const {
       query_token: token,
